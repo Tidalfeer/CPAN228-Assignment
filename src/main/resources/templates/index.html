@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CodeCrew | Home</title>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <main class="container text-center mt-5">
+        <div class="hero-card">
+            <h1 class="display-4 brand-text">CODECREW</h1>
+            <p class="lead">Professional Technical Support & Developer Services</p>
+            <hr class="my-4">
+            <p>A modern alternative for hardware repair and code optimization.</p>
+            <a class="btn btn-primary btn-lg" th:href="@{/bookings/new}">Book a Tech Now</a>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:insert="~{fragments/base :: assetsScripts}"></div>
+</body>
+</html>
