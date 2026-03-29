@@ -27,21 +27,38 @@
 </div>
 
 <script>
-function registerUser() {
-    const username = document.getElementById("newUsername").value;
-    const password = document.getElementById("newPassword").value;
+async function registerUser() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
+    try {
+        const response = await fetch("http://localhost:8080/api/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+        });
 
-    alert("Registration successful! Redirecting to login...");
-    window.location.href = "login.html";
+        if (!response.ok) {
+            alert("Registration failed!");
+            return false;
+        }
+
+        alert("Registration successful! Redirecting to login...");
+        window.location.href = "login.html";
+
+    } catch (error) {
+        console.error(error);
+        alert("Server error!");
+    }
+
     return false;
 }
 
 function clearForm() {
-    document.getElementById("newUsername").value = "";
-    document.getElementById("newPassword").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
 }
 </script>
 

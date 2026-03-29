@@ -27,30 +27,43 @@
 </div>
 
 <script>
-function loginUser() {
-    const username = document.getElementById("username").value;
+async function loginUser() {
+    const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    const storedUser = localStorage.getItem("username");
-    const storedPass = localStorage.getItem("password");
+    try {
+        const response = await fetch("http://localhost:8080/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+        });
 
-    if (!storedUser) {
-        alert("No account found. Redirecting to registration...");
-        window.location.href = "reg.html";
-        return false;
-    }
+        if (response.status === 404) {
+            alert("User not found. Redirecting to registration...");
+            window.location.href = "reg.html";
+            return false;
+        }
 
-    if (username === storedUser && password === storedPass) {
+        if (!response.ok) {
+            alert("Invalid credentials!");
+            return false;
+        }
+
+        const data = await response.json();
         alert("Login successful!");
-    } else {
-        alert("Invalid credentials!");
+
+    } catch (error) {
+        console.error(error);
+        alert("Server error!");
     }
 
     return false;
 }
 
 function clearForm() {
-    document.getElementById("username").value = "";
+    document.getElementById("email").value = "";
     document.getElementById("password").value = "";
 }
 </script>
