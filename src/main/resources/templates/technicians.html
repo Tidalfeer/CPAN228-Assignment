@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CodeCrew | Technicians</title>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <main class="container main-content list-page-wrapper">
+        <h1 class="section-title">OUR TECHNICIANS</h1>
+
+        <div class="technician-card">
+            <div class="row align-items-center g-4">
+                <div class="col-md-2 text-center">
+                    <img th:src="@{/images/technician1.jpg}" alt="Adrian Cole" class="img-fluid" style="max-height: 110px; width: 100%; max-width: 170px;">
+                    <div class="technician-name">Adrian Cole</div>
+                    <div class="technician-specialty">PC Repair • Hardware Diagnostics</div>
+                </div>
+
+                <div class="col-md-7">
+                    <p class="mb-0">
+                        Adrian specializes in desktop and laptop repair, performance troubleshooting, and hardware diagnostics.
+                        He is known for reliable turnaround times and practical solutions for both everyday users and power users.
+                    </p>
+                </div>
+
+                <div class="col-md-3 text-center">
+                    <a th:href="@{/bookings/new}" class="btn btn-primary px-4">Schedule Technician</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="technician-card">
+            <div class="row align-items-center g-4">
+                <div class="col-md-2 text-center">
+                    <img th:src="@{/images/technician2.jpg}" alt="Maya Bennett" class="img-fluid" style="max-height: 110px; width: 100%; max-width: 170px;">
+                    <div class="technician-name">Maya Bennett</div>
+                    <div class="technician-specialty">Software Setup • Security Cleanup</div>
+                </div>
+
+                <div class="col-md-7">
+                    <p class="mb-0">
+                        Maya focuses on software installation, operating system setup, malware cleanup, and device optimization.
+                        She helps clients get their systems running cleanly, securely, and without unnecessary complications.
+                    </p>
+                </div>
+
+                <div class="col-md-3 text-center">
+                    <a th:href="@{/bookings/new}" class="btn btn-primary px-4">Schedule Technician</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="technician-card">
+            <div class="row align-items-center g-4">
+                <div class="col-md-2 text-center">
+                    <img th:src="@{/images/technician3.jpg}" alt="Ethan Park" class="img-fluid" style="max-height: 110px; width: 100%; max-width: 170px;">
+                    <div class="technician-name">Ethan Park</div>
+                    <div class="technician-specialty">Custom Builds • Upgrade Planning</div>
+                </div>
+
+                <div class="col-md-7">
+                    <p class="mb-0">
+                        Ethan works on custom PC builds, upgrade recommendations, and full workstation setup.
+                        He is great at matching performance goals with the right hardware and keeping builds clean, efficient, and dependable.
+                    </p>
+                </div>
+
+                <div class="col-md-3 text-center">
+                    <a th:href="@{/bookings/new}" class="btn btn-primary px-4">Schedule Technician</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:insert="~{fragments/base :: assetsScripts}"></div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CodeCrew | Booking List</title>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <main class="container mt-5">
+        <h2 class="mb-4">Technician Schedule</h2>
+
+        <form th:action="@{/bookings}" method="get" class="row g-3 align-items-end mb-4">
+            <div class="col-md-3">
+                <label class="form-label">Service Type</label>
+                <select name="serviceType" class="form-select">
+                    <option value="">All Services</option>
+                    <option value="Code Review" th:selected="${serviceType == 'Code Review'}">Code Review</option>
+                    <option value="Hardware Repair" th:selected="${serviceType == 'Hardware Repair'}">Hardware Repair</option>
+                    <option value="Software Install" th:selected="${serviceType == 'Software Install'}">Software Install</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Start Date</label>
+                <input type="date" name="startDate" class="form-control" th:value="${startDate}">
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">End Date</label>
+                <input type="date" name="endDate" class="form-control" th:value="${endDate}">
+            </div>
+
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-secondary w-100">Apply Filters</button>
+            </div>
+
+            <div class="col-12">
+                <a th:href="@{/bookings}" class="btn btn-link text-decoration-none">Clear</a>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>
+                            <a th:href="@{/bookings(sort='id', serviceType=${serviceType}, startDate=${startDate}, endDate=${endDate})}">
+                                ID
+                            </a>
+                        </th>
+                        <th>
+                            <a th:href="@{/bookings(sort='serviceDate', serviceType=${serviceType}, startDate=${startDate}, endDate=${endDate})}">
+                                Date
+                            </a>
+                        </th>
+                        <th>Service Type</th>
+                        <th>Location</th>
+                        <th>Customer Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="b : ${bookings}">
+                        <td th:text="${b.id}"></td>
+                        <td th:text="${b.serviceDate}"></td>
+                        <td th:text="${b.serviceType}"></td>
+                        <td th:text="${b.location}"></td>
+                        <td th:text="${b.customerEmail}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item" th:if="${currentPage > 0}">
+                    <a class="page-link"
+                       th:href="@{/bookings(page=${currentPage - 1}, sort=${sort}, serviceType=${serviceType}, startDate=${startDate}, endDate=${endDate})}">
+                        Previous
+                    </a>
+                </li>
+
+                <li class="page-item disabled">
+                    <span class="page-link">
+                        Page [[${currentPage + 1}]] of [[${totalPages}]]
+                    </span>
+                </li>
+
+                <li class="page-item" th:if="${currentPage + 1 < totalPages}">
+                    <a class="page-link"
+                       th:href="@{/bookings(page=${currentPage + 1}, sort=${sort}, serviceType=${serviceType}, startDate=${startDate}, endDate=${endDate})}">
+                        Next
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:insert="~{fragments/base :: assetsScripts}"></div>
+</body>
+</html>

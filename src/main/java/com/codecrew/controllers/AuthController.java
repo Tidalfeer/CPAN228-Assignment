@@ -41,7 +41,7 @@ public class AuthController {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(UserRole.CUSTOMER);
+        user.setRole(UserRole.CUSTOMER.name());
 
         userRepository.save(user);
 

@@ -8,14 +8,56 @@
 
     <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
-    <main class="container text-center mt-5">
-        <div class="hero-card">
-            <h1 class="display-4 brand-text">CODECREW</h1>
-            <p class="lead">Professional Technical Support & Developer Services</p>
-            <hr class="my-4">
-            <p>A modern alternative for hardware repair and code optimization.</p>
-            <a class="btn btn-primary btn-lg" th:href="@{/bookings/new}">Book a Tech Now</a>
-        </div>
+    <main class="container-fluid main-content px-4 px-md-5">
+        <section class="hero-section home-hero-tight">
+            <div class="container">
+                <div class="text-center home-heading-wrap">
+                    <h1 class="home-main-title">WELCOME TO THE CCREW!</h1>
+                    <p class="home-subtitle">your one stop tech-support hub</p>
+                </div>
+
+                <div class="row justify-content-center align-items-center home-panels-row g-0">
+                    <div class="col-md-4 d-flex justify-content-center">
+                        <div class="info-panel home-panel side-panel">
+                            <h3>Professional Service</h3>
+                            <p>
+                                CodeCrew delivers reliable technical support with a professional approach from start to finish.
+                                We focus on clear communication, quality work, and solutions that are done properly the first time.
+                            </p>
+                            <div class="panel-button-wrap">
+                                <a class="btn btn-primary" th:href="@{/services}">View Services</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 d-flex justify-content-center">
+                        <div class="info-panel home-panel center-panel">
+                            <h3>On Time &amp; On Schedule</h3>
+                            <p>
+                                We respect your time with organized booking, dependable scheduling, and efficient turnaround.
+                                Whether you need support for repairs, setup, or troubleshooting, we aim to keep every appointment smooth and on track.
+                            </p>
+                            <div class="panel-button-wrap">
+                                <a class="btn btn-primary" th:href="@{/bookings/new}">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 d-flex justify-content-center">
+                        <div class="info-panel home-panel side-panel">
+                            <h3>Warranty-Backed Support</h3>
+                            <p>
+                                Our work is backed by dependable service standards and support you can count on after the job is done.
+                                We stand behind our service with care, consistency, and a commitment to long-term customer confidence.
+                            </p>
+                            <div class="panel-button-wrap">
+                                <a class="btn btn-primary" th:href="@{/technicians}">View Technicians</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <div th:replace="~{fragments/footer :: footer}"></div>

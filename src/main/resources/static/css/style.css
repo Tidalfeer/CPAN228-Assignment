@@ -1,30 +1,467 @@
 :root {
-    --primary-blue: #7dfd0d;
-    --dark-bg: #212529;
-    --light-gray: #4d7aa7;
+    --bg-main: #d3d3d3;
+    --panel-bg: rgba(211, 211, 211, 0.92);
+    --accent-blue: #4da6b3;
+    --accent-blue-hover: #3b8a96;
+    --text-main: #000000;
+    --text-muted: #555555;
+    --border-main: #000000;
+}
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    background-color: var(--light-gray);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    background: url('/images/bg-tech.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
 }
 
-.hero-card {
-    background-color: white;
-    padding: 4rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border: 1px solid #dee2e6;
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(185, 205, 215, 0.58);
+    z-index: -1;
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+.lead {
+    color: var(--text-main);
 }
 
 .brand-text {
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: var(--primary-blue);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--text-main);
+    letter-spacing: 0.04em;
 }
 
-.error-text {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
+/* Navbar */
+.navbar {
+    background-color: var(--bg-main) !important;
+    border-bottom: 3px solid var(--border-main);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    min-height: 78px;
+}
+
+.site-logo {
+    height: 60px;
+    width: auto;
+    display: block;
+}
+
+.navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 1rem;
+}
+
+.nav-link {
+    color: var(--text-main) !important;
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--text-main) !important;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 700;
+}
+
+/* General layout */
+.main-content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.hero-section {
+    min-height: calc(100vh - 90px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+}
+
+.home-hero-tight {
+    min-height: auto;
+    padding-top: 1.25rem;
+    padding-bottom: 1rem;
+}
+
+.home-heading-wrap {
+    margin-bottom: 1.25rem;
+}
+
+.home-main-title {
+    font-size: 3.6rem;
+    font-weight: 900;
+    color: var(--text-main);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+}
+
+.home-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.page-title {
+    font-weight: 900;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-main);
+}
+
+.section-title {
+    font-weight: 900;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-main);
+    text-transform: uppercase;
+}
+
+.list-page-wrapper {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+/* Panels and cards */
+.hero-card,
+.custom-panel,
+.info-panel,
+.form-panel,
+.admin-table-wrapper {
+    background-color: var(--panel-bg);
+    border: 2px solid rgba(0, 0, 0, 0.55);
+    border-radius: 0;
+    text-align: center;
+    box-shadow: none;
+}
+
+.hero-card,
+.custom-panel {
+    padding: 2rem;
+}
+
+.info-panel {
+    padding: 2rem 1.5rem;
+    height: 100%;
+}
+
+.form-panel {
+    padding: 3rem 2.5rem;
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+.admin-table-wrapper {
+    padding: 1.5rem;
+}
+
+.info-panel h2,
+.info-panel h3,
+.custom-panel h2,
+.custom-panel h3,
+.hero-card h1,
+.hero-card h2 {
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+/* Homepage panels */
+.home-panels-row {
+    align-items: center;
+    justify-content: center;
+}
+
+.home-panel {
+    background-color: var(--panel-bg);
+    border: 2px solid rgba(0, 0, 0, 0.55);
+    text-align: center;
+    padding: 1.75rem 1.4rem;
+    width: 100%;
+    max-width: 370px;
+}
+
+.side-panel {
+    min-height: 400px;
+}
+
+.center-panel {
+    min-height: 480px;
+    max-width: 420px;
+    z-index: 2;
+}
+
+.home-panel h3 {
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 1.75rem;
+    color: var(--text-main);
+}
+
+.home-panel p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    max-width: 290px;
+    margin: 0 auto;
+}
+
+.panel-button-wrap {
+    margin-top: 2.25rem;
+}
+
+/* Service and technician cards */
+.service-card,
+.technician-card {
+    background-color: var(--panel-bg);
+    border: 2px solid rgba(0, 0, 0, 0.55);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-card img,
+.technician-card img {
+    border: 2px solid var(--border-main);
+    object-fit: cover;
+}
+
+.service-card p,
+.technician-card p {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--text-main);
+    text-align: center;
+}
+
+.service-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-top: 0.6rem;
+    color: var(--text-main);
+}
+
+.technician-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0.6rem;
+    color: var(--text-main);
+}
+
+.technician-specialty {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+}
+
+/* Buttons */
+.btn,
+.btn-primary,
+.btn-outline-secondary {
+    border-radius: 12px;
+    border-width: 1.5px;
+    padding: 0.72rem 1.6rem;
+    min-width: 180px;
+    box-shadow: none;
+    font-weight: 700;
+}
+
+.btn,
+.btn-primary {
+    background-color: var(--accent-blue);
+    border: 1.5px solid rgba(0, 0, 0, 0.55);
+    color: var(--text-main);
+}
+
+.btn:hover,
+.btn-primary:hover,
+.btn:focus,
+.btn-primary:focus {
+    background-color: var(--accent-blue-hover);
+    color: var(--text-main);
+    border-color: rgba(0, 0, 0, 0.55);
+    box-shadow: none;
+}
+
+.btn-outline-secondary {
+    background-color: transparent;
+    border: 1.5px solid rgba(0, 0, 0, 0.55);
+    color: var(--text-main);
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus {
+    background-color: #c9c9c9;
+    color: var(--text-main);
+    border-color: rgba(0, 0, 0, 0.55);
+    box-shadow: none;
+}
+
+/* Forms */
+.form-label {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-bottom: 0.75rem;
+}
+
+.form-control,
+.form-select {
+    border: 2px solid #777;
+    border-radius: 0;
+    min-height: 50px;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    background-color: #f5f5f5;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #4f8ef7;
+    box-shadow: none;
+    background-color: #ffffff;
+}
+
+.alert {
+    border-radius: 0;
+    border: 2px solid var(--border-main);
+}
+
+/* Tables */
+.table {
+    color: var(--text-main);
+    margin-bottom: 0;
+}
+
+.table th,
+.table td {
+    background-color: transparent !important;
+    border-color: var(--border-main);
+    vertical-align: middle;
+}
+
+/* Footer */
+.site-footer {
+    background-color: #000000;
+    border-top: 3px solid #000000;
+    padding: 0.75rem 0;
+    margin-top: auto;
+}
+
+.site-footer .footer-content {
+    text-align: right;
+}
+
+.site-footer p,
+.site-footer small {
+    color: #ffffff !important;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .home-panels-row .col-md-4:nth-child(2) {
+        margin-left: -18px;
+        margin-right: -18px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-brand {
+        font-size: 1.75rem;
+    }
+
+    .nav-link {
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .section-title,
+    .page-title {
+        font-size: 2.25rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hero-section {
+        min-height: auto;
+        padding: 2rem 0;
+    }
+
+    .hero-card,
+    .custom-panel,
+    .info-panel,
+    .service-card,
+    .technician-card,
+    .form-panel,
+    .admin-table-wrapper {
+        padding: 1.5rem;
+    }
+
+    .home-main-title {
+        font-size: 2.2rem;
+    }
+
+    .home-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-title,
+    .page-title {
+        font-size: 1.9rem;
+    }
+
+    .service-title,
+    .technician-name {
+        font-size: 1.5rem;
+    }
+
+    .form-label {
+        font-size: 1.2rem;
+    }
+
+    .home-panel,
+    .side-panel,
+    .center-panel {
+        min-height: auto;
+        max-width: 100%;
+    }
+
+    .home-panels-row .col-md-4:nth-child(2) {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .panel-button-wrap {
+        margin-top: 1.5rem;
+    }
+
+    .btn,
+    .btn-primary,
+    .btn-outline-secondary {
+        width: 100%;
+        text-align: center;
+    }
 }
