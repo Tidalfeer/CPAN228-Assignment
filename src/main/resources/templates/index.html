@@ -8,15 +8,15 @@
 
     <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
-    <main class="container text-center mt-5">
-        <div class="hero-card">
-            <h1 class="display-4 brand-text">CODECREW</h1>
-            <p class="lead">Professional Technical Support & Developer Services</p>
-            <hr class="my-4">
-            <p>A modern alternative for hardware repair and code optimization.</p>
-            <a class="btn btn-primary btn-lg" th:href="@{/bookings/new}">Book a Tech Now</a>
+<main class="container text-center mt-5">
+    <div class="hero-card border-glow"> <h1 class="display-2 brand-text">CodeCrew</h1>
+        <p class="lead text-muted">A Next-Gen Technical Support Ecosystem</p>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a class="btn btn-primary btn-lg px-5" th:href="@{/bookings/new}">Book Now</a>
+            <a class="btn btn-outline-light btn-lg px-5" th:href="@{/services}">Services</a>
         </div>
-    </main>
+    </div>
+</main>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
     <div th:insert="~{fragments/base :: assetsScripts}"></div>
