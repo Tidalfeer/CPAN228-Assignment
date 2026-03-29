@@ -8,22 +8,63 @@
 
     <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
-    <main class="container mt-5">
-        <h1 class="mb-4">Our Services</h1>
-        <p class="text-muted">We offer a range of technical solutions for developers and hardware users.</p>
-        
-        <div class="list-group shadow-sm">
-            <div class="list-group-item p-4">
-                <h5 class="mb-1">Coding and Programming Help</h5>
-                <p class="mb-1">Code reviews, debugging support, and optimization for modern tech stacks.</p>
+    <main class="container main-content list-page-wrapper">
+        <h1 class="section-title">OUR SERVICES</h1>
+
+        <div class="service-card">
+            <div class="row align-items-center g-4">
+                <div class="col-md-2 text-center">
+                    <img th:src="@{/images/service1.png}" alt="PC and Laptop Repair" class="img-fluid" style="max-height: 110px; width: 100%; max-width: 170px;">
+                    <div class="service-title">PC &amp; Laptop Repair</div>
+                </div>
+
+                <div class="col-md-7">
+                    <p class="mb-0">
+                        Hardware diagnostics, repair support, overheating fixes, part replacement, and performance troubleshooting for desktops and laptops.
+                    </p>
+                </div>
+
+                <div class="col-md-3 text-center">
+                    <a th:href="@{/bookings/new}" class="btn btn-primary px-5">Book Now</a>
+                </div>
             </div>
-            <div class="list-group-item p-4">
-                <h5 class="mb-1">Hardware Support</h5>
-                <p class="mb-1">Diagnostics, hardware upgrades, and repair services for PCs and laptops.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="row align-items-center g-4">
+                <div class="col-md-2 text-center">
+                    <img th:src="@{/images/service2.png}" alt="Custom PC Builds and Upgrades" class="img-fluid" style="max-height: 110px; width: 100%; max-width: 170px;">
+                    <div class="service-title">Custom PC Builds &amp; Upgrades</div>
+                </div>
+
+                <div class="col-md-7">
+                    <p class="mb-0">
+                        Custom computer builds, RAM and storage upgrades, graphics card installs, cooling improvements, and setup help for better performance.
+                    </p>
+                </div>
+
+                <div class="col-md-3 text-center">
+                    <a th:href="@{/bookings/new}" class="btn btn-primary px-5">Book Now</a>
+                </div>
             </div>
-            <div class="list-group-item p-4">
-                <h5 class="mb-1">Software Licensing & Setup</h5>
-                <p class="mb-1">Installation of development environments and software license management.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="row align-items-center g-4">
+                <div class="col-md-2 text-center">
+                    <img th:src="@{/images/service3.png}" alt="Software Setup and Troubleshooting" class="img-fluid" style="max-height: 110px; width: 100%; max-width: 170px;">
+                    <div class="service-title">Software Setup &amp; Tech Support</div>
+                </div>
+
+                <div class="col-md-7">
+                    <p class="mb-0">
+                        Operating system setup, driver installation, software troubleshooting, development tool installation, and general system cleanup.
+                    </p>
+                </div>
+
+                <div class="col-md-3 text-center">
+                    <a th:href="@{/bookings/new}" class="btn btn-primary px-5">Book Now</a>
+                </div>
             </div>
         </div>
     </main>
