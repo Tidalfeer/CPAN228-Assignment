@@ -1,1 +1,57 @@
---can this page to be removed--
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeCrew | Register</title>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <main class="container main-content d-flex justify-content-center align-items-start">
+        <div class="form-panel login-panel mt-4">
+            <h1 class="section-title mb-4">SIGN UP</h1>
+
+            <form onsubmit="return registerUser()">
+                <div class="mb-4 text-start">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Choose a username" required>
+                </div>
+
+                <div class="mb-4 text-start">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+
+                <div class="mb-4 text-start">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+                </div>
+
+                <div class="login-links-wrap text-start">
+                    <a href="/login" class="login-link">Already have an account? Log in.</a>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:insert="~{fragments/base :: assetsScripts}"></div>
+
+    <script>
+    async function registerUser() {
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        console.log("Register form submitted", { username, email, password });
+        return false;
+    }
+    </script>
+</body>
+</html>

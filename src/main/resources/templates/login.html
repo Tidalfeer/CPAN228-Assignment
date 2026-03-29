@@ -1,72 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>CodeCrew | Login</title>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<!-- NAVBAR PLACEHOLDER -->
-<!-- Add navbar here later -->
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
-<div class="container">
-    <h2>Login</h2>
+    <main class="container main-content d-flex justify-content-center align-items-start">
+        <div class="form-panel login-panel mt-4">
+            <h1 class="section-title mb-4">LOG IN</h1>
 
-    <form onsubmit="return loginUser()">
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
+            <form onsubmit="return loginUser()">
+                <div class="mb-4 text-start">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
 
-        <div class="links">
-            <a href="reg.html">New User?</a>
-            <a href="#">Forgot Password?</a>
+                <div class="mb-4 text-start">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+
+                <div class="login-links-wrap text-start">
+                    <a href="/register" class="login-link">Don’t have an account? Sign up.</a>
+                    <a href="#" class="login-link">Forgot Password?</a>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
         </div>
+    </main>
 
-        <button type="submit">Login</button>
-        <button type="button" onclick="clearForm()">Cancel</button>
-    </form>
-</div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:insert="~{fragments/base :: assetsScripts}"></div>
 
-<script>
-async function loginUser() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    <script>
+    async function loginUser() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-    try {
-        const response = await fetch("http://localhost:8080/api/auth/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, password })
-        });
+        try {
+            const response = await fetch("http://localhost:8080/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-        if (response.status === 404) {
-            alert("User not found. Redirecting to registration...");
-            window.location.href = "reg.html";
-            return false;
+            if (response.status === 404) {
+                alert("User not found. Redirecting to registration...");
+                window.location.href = "/register";
+                return false;
+            }
+
+            if (!response.ok) {
+                alert("Invalid credentials!");
+                return false;
+            }
+
+            const data = await response.json();
+            alert("Login successful!");
+
+        } catch (error) {
+            console.error(error);
+            alert("Server error!");
         }
 
-        if (!response.ok) {
-            alert("Invalid credentials!");
-            return false;
-        }
-
-        const data = await response.json();
-        alert("Login successful!");
-
-    } catch (error) {
-        console.error(error);
-        alert("Server error!");
+        return false;
     }
 
-    return false;
-}
-
-function clearForm() {
-    document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
-}
-</script>
-
+    function clearForm() {
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+    }
+    </script>
 </body>
 </html>
