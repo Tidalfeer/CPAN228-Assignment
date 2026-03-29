@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+</head>
+<body>
+
+<!-- NAVBAR PLACEHOLDER -->
+<!-- Add navbar here later -->
+
+<div class="container">
+    <h2>Register</h2>
+
+    <form onsubmit="return registerUser()">
+        <input type="text" id="newUsername" placeholder="Username" required>
+        <input type="password" id="newPassword" placeholder="Password" required>
+
+        <div class="links">
+            <a href="login.html">Back to Login</a>
+        </div>
+
+        <button type="submit">Register</button>
+        <button type="button" onclick="clearForm()">Cancel</button>
+    </form>
+</div>
+
+<script>
+function registerUser() {
+    const username = document.getElementById("newUsername").value;
+    const password = document.getElementById("newPassword").value;
+
+    localStorage.setItem("username", username);
+    localStorage.setItem("password", password);
+
+    alert("Registration successful! Redirecting to login...");
+    window.location.href = "login.html";
+    return false;
+}
+
+function clearForm() {
+    document.getElementById("newUsername").value = "";
+    document.getElementById("newPassword").value = "";
+}
+</script>
+
+</body>
+</html>
