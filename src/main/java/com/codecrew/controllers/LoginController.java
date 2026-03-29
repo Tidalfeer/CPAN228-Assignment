@@ -10,4 +10,11 @@ public class LoginController {
     public String getLoginPage() {
         return "login";
     }
+
+
+@GetMapping("/register")
+public String getRegisterPage() {
+    return "register";
+}
+
 }
