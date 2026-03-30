@@ -1,18 +1,31 @@
-# CPAN228-Assignment
-Group Assignment for CPAN228
+# CPAN228 — Group Assignment
+**Course:** CPAN-228 Web Application Development
+ 
+## Team — Code Crew
+| Name | GitHub |
+|---|---|
+| Ilia Mchedlishvili | IliaMched |
+| Raj Patel | RajPatel514 |
+| Ramanpreet Grover | RamanpreetGrover |
+| Tyler Lee | Tidalfeer |
+ 
+---
 
-#CODE CREW
-Ilia Mchedlishvili
-Raj Patel
-Ramanpreet Grover
-Tyler Lee
+## Project Overview
+CodeCrew is a web-based technician booking platform built with Spring Boot and Thymeleaf. Users can browse services, schedule technicians, and manage bookings. Administrators have a dedicated panel to manage users and bookings.
 
+---
 
-This is a group assignment for Class CPAN-228  Web Application Development. 
+### Steps
+Terminal:
+git clone <repo-url>
+cd <project-folder>
+mvn spring-boot:run
+```
+ 
+The app starts at `http://localhost:8080`
 
-## Data Persistence Layer – Ramanpreet Grover
-
-Implemented the database persistence layer for the Booking system.
+---
 
 ### Components Added
 - JPA Entity: `Booking.java`
@@ -21,10 +34,3 @@ Implemented the database persistence layer for the Booking system.
 - Automatic timestamp (`createdAt`) using `@PrePersist`
 - Sample booking records using `data.sql`
 - Repository query method `findByServiceType()`
-
-### Testing
-The persistence layer was verified using the H2 console.
-
-Example query used:
-
-SELECT * FROM booking;
