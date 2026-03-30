@@ -18,10 +18,11 @@ CodeCrew is a web-based technician booking platform built with Spring Boot and T
 
 ### Steps
 Terminal:
-git clone <repo-url>
-cd <project-folder>
+git clone (repo-url)
+cd (project-folder)
 mvn spring-boot:run
-```
+
+---
  
 The app starts at `http://localhost:8080`
 
