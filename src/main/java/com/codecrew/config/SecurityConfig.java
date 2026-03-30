@@ -25,6 +25,7 @@ public class SecurityConfig {
                                 "/services",
                                 "/technicians",
                                 "/register",
+                                "/bookings",
                                 "/login",
                                 "/css/**",
                                 "/js/**",
