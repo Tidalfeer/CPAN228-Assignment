@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeCrew | Admin Panel</title>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
+</head>
+<body class="d-flex flex-column min-vh-100">
+ 
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+ 
+    <main class="container main-content list-page-wrapper">
+        <h1 class="section-title">ADMIN PANEL</h1>
+ 
+        <!-- User Management -->
+        <div class="admin-table-wrapper mb-5">
+            <h2 class="brand-text mb-4">Manage Users</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable"></tbody>
+                </table>
+            </div>
+        </div>
+ 
+        <!-- Booking Management -->
+        <div class="admin-table-wrapper mb-5">
+            <h2 class="brand-text mb-4">Manage Bookings</h2>
+            <div class="row align-items-end mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Filter by Service</label>
+                    <select id="bookingFilter" class="form-select">
+                        <option value="">All</option>
+                        <option value="Code Review">Code Review</option>
+                        <option value="Hardware Repair">Hardware Repair</option>
+                        <option value="Software Install">Software Install</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button onclick="loadBookings()" class="btn btn-primary w-100">Filter</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer Email</th>
+                            <th>Service</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTable"></tbody>
+                </table>
+            </div>
+        </div>
+ 
+        <!-- Audit Logs -->
+        <div class="admin-table-wrapper mb-5">
+            <h2 class="brand-text mb-4">Audit Logs</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Admin Email</th>
+                            <th>Entity</th>
+                            <th>Entity ID</th>
+                            <th>Action</th>
+                            <th>Old Value</th>
+                            <th>New Value</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="auditTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+ 
+    <!-- Password Confirmation Modal -->
+    <div class="modal fade" id="passwordModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title brand-text">Confirm Admin Password</h5>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="adminPassword" class="form-control" placeholder="Enter your password">
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmPasswordBtn" class="btn btn-primary">Confirm</button>
+                    <button onclick="closePasswordModal()" class="btn btn-outline-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:insert="~{fragments/base :: assetsScripts}"></div>
+<script>
+let currentAction = null;
+let currentData = null;
+
+
+async function loadUsers() {
+    const res = await fetch('/admin/users');
+    const users = await res.json();
+    const tbody = document.getElementById('usersTable');
+    tbody.innerHTML = '';
+
+    users.forEach(u => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${u.id}</td>
+                <td><input type="text" id="name-${u.id}" value="${u.name}"></td>
+                <td>${u.email}</td>
+                <td>
+                    <select id="role-${u.id}">
+                        <option ${u.role === 'ADMIN' ? 'selected' : ''}>ADMIN</option>
+                        <option ${u.role === 'STAFF' ? 'selected' : ''}>STAFF</option>
+                        <option ${u.role === 'USER' || u.role === 'CLIENT' ? 'selected' : ''}>USER</option>
+                    </select>
+                </td>
+                <td>
+                    <button onclick="promptPassword('updateUser', ${u.id})">Save</button>
+                    <button onclick="promptPassword('deleteUser', ${u.id})">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+// BOOKINGS 
+async function loadBookings() {
+    const serviceType = document.getElementById('bookingFilter').value;
+    let url = '/admin/bookings';
+    if(serviceType) url += '?serviceType=' + serviceType;
+
+    const res = await fetch(url);
+    const bookings = await res.json();
+    const tbody = document.getElementById('bookingsTable');
+    tbody.innerHTML = '';
+
+    bookings.forEach(b => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${b.id}</td>
+                <td>${b.customerEmail}</td>
+                <td>
+                    <select id="service-${b.id}">
+                        <option ${b.serviceType==='Code Review'?'selected':''}>Code Review</option>
+                        <option ${b.serviceType==='Hardware Repair'?'selected':''}>Hardware Repair</option>
+                        <option ${b.serviceType==='Software Installation'?'selected':''}>Software Installation</option>
+                    </select>
+                </td>
+                <td><input type="date" id="date-${b.id}" value="${b.serviceDate}"></td>
+                <td>
+                    <button onclick="promptPassword('updateBooking', ${b.id})">Save</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+// AUDIT LOGS
+async function loadAuditLogs() {
+    const res = await fetch('/admin/audit-logs');
+    const logs = await res.json();
+    const tbody = document.getElementById('auditTable');
+    tbody.innerHTML = '';
+
+    logs.forEach(l => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${l.id}</td>
+                <td>${l.adminEmail}</td>
+                <td>${l.entityType}</td>
+                <td>${l.entityId}</td>
+                <td>${l.action}</td>
+                <td>${l.oldValue}</td>
+                <td>${l.newValue}</td>
+                <td>${l.timestamp}</td>
+            </tr>
+        `;
+    });
+}
+
+// PASSWORD MODAL
+function promptPassword(action, dataId) {
+    currentAction = action;
+    currentData = dataId;
+    document.getElementById('passwordModal').style.display = 'flex';
+}
+
+function closePasswordModal() {
+    document.getElementById('passwordModal').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
+}
+
+// CONFIRM PASSWORD
+document.getElementById('confirmPasswordBtn').addEventListener('click', async () => {
+    const password = document.getElementById('adminPassword').value;
+    const adminEmail = ''; // You can set this to the logged-in admin's email if needed
+    let res;
+
+    if(currentAction === 'updateUser') {
+        const name = document.getElementById('name-' + currentData).value;
+        const role = document.getElementById('role-' + currentData).value;
+
+        res = await fetch(`/admin/users/${currentData}?name=${name}&role=${role}&adminPassword=${password}`, {
+            method: 'PUT'
+        });
+    } else if(currentAction === 'deleteUser') {
+        res = await fetch(`/admin/users/${currentData}?adminPassword=${password}`, {
+            method: 'DELETE'
+        });
+    } else if(currentAction === 'updateBooking') {
+        const serviceType = document.getElementById('service-' + currentData).value;
+        const serviceDate = document.getElementById('date-' + currentData).value;
+
+        res = await fetch(`/admin/bookings/${currentData}?serviceType=${serviceType}&serviceDate=${serviceDate}&adminPassword=${password}`, {
+            method: 'PUT'
+        });
+    }
+
+    if(res.status === 403) {
+        alert('Invalid password or not authorized!');
+    } else {
+        alert('Action completed successfully!');
+        loadUsers();
+        loadBookings();
+        loadAuditLogs();
+    }
+
+    closePasswordModal();
+});
+
+//  INITIAL LOAD
+window.onload = () => {
+    loadUsers();
+    loadBookings();
+    loadAuditLogs();
+};
+</script>
+
+</body>
+</html>

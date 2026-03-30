@@ -13,20 +13,29 @@
         <div class="form-panel login-panel mt-4">
             <h1 class="section-title mb-4">LOG IN</h1>
 
-            <form onsubmit="return loginUser()">
+            <div th:if="${param.error}" class="alert alert-danger text-center" role="alert">
+                Invalid email or password. Please try again.
+            </div>
+
+            <div th:if="${param.logout}" class="alert alert-success text-center" role="alert">
+                You have been logged out successfully.
+            </div>
+
+            <form th:action="@{/login}" method="post">
                 <div class="mb-4 text-start">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" id="email" class="form-control" placeholder="Enter your email" required>
+                    <label for="username" class="form-label">Email</label>
+                    <input type="text" id="username" name="username"
+                           class="form-control" placeholder="Enter your email" required>
                 </div>
 
                 <div class="mb-4 text-start">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                    <input type="password" id="password" name="password"
+                           class="form-control" placeholder="Enter your password" required>
                 </div>
 
                 <div class="login-links-wrap text-start">
-                    <a href="/register" class="login-link">Don’t have an account? Sign up.</a>
-                    <a href="#" class="login-link">Forgot Password?</a>
+                    <a href="/register" class="login-link">Don't have an account? Sign up.</a>
                 </div>
 
                 <div class="mt-4 text-center">
@@ -38,47 +47,5 @@
 
     <div th:replace="~{fragments/footer :: footer}"></div>
     <div th:insert="~{fragments/base :: assetsScripts}"></div>
-
-    <script>
-    async function loginUser() {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        try {
-            const response = await fetch("http://localhost:8080/api/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email, password })
-            });
-
-            if (response.status === 404) {
-                alert("User not found. Redirecting to registration...");
-                window.location.href = "/register";
-                return false;
-            }
-
-            if (!response.ok) {
-                alert("Invalid credentials!");
-                return false;
-            }
-
-            const data = await response.json();
-            alert("Login successful!");
-
-        } catch (error) {
-            console.error(error);
-            alert("Server error!");
-        }
-
-        return false;
-    }
-
-    function clearForm() {
-        document.getElementById("email").value = "";
-        document.getElementById("password").value = "";
-    }
-    </script>
 </body>
 </html>

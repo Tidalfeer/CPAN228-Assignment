@@ -13,20 +13,28 @@
         <div class="form-panel login-panel mt-4">
             <h1 class="section-title mb-4">SIGN UP</h1>
 
-            <form onsubmit="return registerUser()">
+            <div th:if="${param.error}" class="alert alert-danger text-center" role="alert">
+                An account with that email already exists. Please try a different one.
+            </div>
+
+            <form th:action="@{/register}" method="post">
+
                 <div class="mb-4 text-start">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" id="username" class="form-control" placeholder="Choose a username" required>
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name"
+                           class="form-control" placeholder="Enter your name" required>
                 </div>
 
                 <div class="mb-4 text-start">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                    <input type="email" id="email" name="email"
+                           class="form-control" placeholder="Enter your email" required>
                 </div>
 
                 <div class="mb-4 text-start">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+                    <input type="password" id="password" name="password"
+                           class="form-control" placeholder="Create a password" required>
                 </div>
 
                 <div class="login-links-wrap text-start">
@@ -42,16 +50,5 @@
 
     <div th:replace="~{fragments/footer :: footer}"></div>
     <div th:insert="~{fragments/base :: assetsScripts}"></div>
-
-    <script>
-    async function registerUser() {
-        const username = document.getElementById("username").value;
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        console.log("Register form submitted", { username, email, password });
-        return false;
-    }
-    </script>
 </body>
 </html>

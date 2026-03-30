@@ -31,11 +31,15 @@ public class RegisterController {
                                @RequestParam String email,
                                @RequestParam String password) {
 
+        if (userRepository.findByEmail(email).isPresent()) {
+            return "redirect:/register?error";
+        }                        
+
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
-        user.setRole("CLIENT");
+        user.setRole("USER");
 
         userRepository.save(user);
 

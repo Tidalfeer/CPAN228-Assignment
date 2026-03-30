@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
     <nav th:fragment="navbar" class="navbar navbar-expand-lg">
         <div class="container">
@@ -17,7 +18,25 @@
                     <li class="nav-item"><a class="nav-link" th:href="@{/services}">Services</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/technicians}">Technicians</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/bookings/new}">Book Now</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/login}">Log In</a></li>
+
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" th:href="@{/admin}">Admin Panel</a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/login}">Log In</a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <span class="nav-link pe-none" style="font-weight: 600;" sec:authentication="name"></span>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">Log Out</button>
+                        </form>
+                    </li>
+
                 </ul>
             </div>
         </div>
