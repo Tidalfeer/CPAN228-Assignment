@@ -1,17 +1,25 @@
 package com.codecrew.controllers;
 
-import com.codecrew.model.Booking;
-import com.codecrew.model.User;
-import com.codecrew.model.AuditLog;
-import com.codecrew.repository.AuditLogRepository;
-import com.codecrew.Service.AdminService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codecrew.Service.AdminService;
+import com.codecrew.model.AuditLog;
+import com.codecrew.model.Booking;
+import com.codecrew.model.User;
+import com.codecrew.repository.AuditLogRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/admin")
@@ -84,6 +92,21 @@ public class AdminController {
 
         Booking updatedBooking = adminService.updateBooking(id, adminEmail, serviceType, LocalDate.parse(serviceDate));
         return ResponseEntity.ok(updatedBooking);
+    }
+
+    @DeleteMapping("/bookings/{id}")
+    public ResponseEntity<Void> deleteBooking(
+            @PathVariable Long id,
+            @RequestParam String adminPassword
+    ) {
+        String adminEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if (!adminService.verifyAdminPassword(adminEmail, adminPassword)) {
+            return ResponseEntity.status(403).build();
+        }
+
+        adminService.deleteBooking(id, adminEmail);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/audit-logs")

@@ -1,15 +1,17 @@
 package com.codecrew.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.codecrew.model.Booking;
 import com.codecrew.model.User;
 import com.codecrew.repository.BookingRepository;
 import com.codecrew.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -71,6 +73,17 @@ public class AdminService {
             return bookingRepository.findByServiceDateBetween(start, end, null).getContent();
         }
         return bookingRepository.findAll();
+    }
+
+
+    public void deleteBooking(Long bookingId, String adminEmail) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        String oldValue = "Service=" + booking.getServiceType() + ", Date=" + booking.getServiceDate();
+        bookingRepository.delete(booking);
+
+        auditService.log(adminEmail, "BOOKING", bookingId, "DELETE", oldValue, "DELETED");
     }
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>CodeCrew | Admin Panel</title>
@@ -11,6 +12,7 @@
  
     <main class="container main-content list-page-wrapper">
         <h1 class="section-title">ADMIN PANEL</h1>
+        <span id="userRole" th:text="${#authorization.expression('hasRole(''ADMIN'')')}" style="display:none"></span>
  
         <!-- User Management -->
         <div class="admin-table-wrapper mb-5">
@@ -111,6 +113,7 @@
 <script>
 let currentAction = null;
 let currentData = null;
+const isAdmin = document.getElementById('userRole').textContent.trim() === 'true';
 
 
 async function loadUsers() {
@@ -132,10 +135,7 @@ async function loadUsers() {
                         <option ${u.role === 'USER' || u.role === 'CLIENT' ? 'selected' : ''}>USER</option>
                     </select>
                 </td>
-                <td>
-                    <button onclick="promptPassword('updateUser', ${u.id})">Save</button>
-                    <button onclick="promptPassword('deleteUser', ${u.id})">Delete</button>
-                </td>
+                ${isAdmin ? `<td><button onclick="promptPassword('updateUser', ${u.id})">Save</button> <button onclick="promptPassword('deleteUser', ${u.id})">Delete</button></td>` : `<td><em>View only</em></td>`}
             </tr>
         `;
     });
@@ -165,9 +165,7 @@ async function loadBookings() {
                     </select>
                 </td>
                 <td><input type="date" id="date-${b.id}" value="${b.serviceDate}"></td>
-                <td>
-                    <button onclick="promptPassword('updateBooking', ${b.id})">Save</button>
-                </td>
+                ${isAdmin ? `<td><button onclick="promptPassword('updateBooking', ${b.id})">Save</button> <button onclick="promptPassword('deleteBooking', ${b.id})">Delete</button></td>` : `<td><em>View only</em></td>`}
             </tr>
         `;
     });
@@ -197,14 +195,17 @@ async function loadAuditLogs() {
 }
 
 // PASSWORD MODAL
+let passwordModal;
+
 function promptPassword(action, dataId) {
     currentAction = action;
     currentData = dataId;
-    document.getElementById('passwordModal').style.display = 'flex';
+    passwordModal = new bootstrap.Modal(document.getElementById('passwordModal'));
+    passwordModal.show();
 }
 
 function closePasswordModal() {
-    document.getElementById('passwordModal').style.display = 'none';
+    if (passwordModal) passwordModal.hide();
     document.getElementById('adminPassword').value = '';
 }
 
@@ -231,6 +232,10 @@ document.getElementById('confirmPasswordBtn').addEventListener('click', async ()
 
         res = await fetch(`/admin/bookings/${currentData}?serviceType=${serviceType}&serviceDate=${serviceDate}&adminPassword=${password}`, {
             method: 'PUT'
+        });
+    } else if(currentAction === 'deleteBooking') {
+        res = await fetch(`/admin/bookings/${currentData}?adminPassword=${password}`, {
+            method: 'DELETE'
         });
     }
 
