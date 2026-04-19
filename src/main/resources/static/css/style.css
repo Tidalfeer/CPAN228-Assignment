@@ -465,3 +465,28 @@ body::before {
         text-align: center;
     }
 }
+
+
+.login-panel {
+    max-width: 620px;
+    width: 100%;
+}
+
+.login-links-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.25rem;
+}
+
+.login-link {
+    color: blue;
+    font-weight: 400;
+    font-size: 0.95rem;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+    color: purple;
+}

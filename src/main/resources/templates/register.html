@@ -1,44 +1,54 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register - CodeCrew</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <title>CodeCrew | Register</title>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<div class="container">
-    <h2>Create Account</h2>
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
-    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+    <main class="container main-content d-flex justify-content-center align-items-start">
+        <div class="form-panel login-panel mt-4">
+            <h1 class="section-title mb-4">SIGN UP</h1>
 
-    <form th:action="@{/register}" th:object="${user}" method="post">
-        <div>
-            <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" th:field="*{fullName}" required>
+            <div th:if="${param.error}" class="alert alert-danger text-center" role="alert">
+                An account with that email already exists. Please try a different one.
+            </div>
+
+            <form th:action="@{/register}" method="post">
+
+                <div class="mb-4 text-start">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name"
+                           class="form-control" placeholder="Enter your name" required>
+                </div>
+
+                <div class="mb-4 text-start">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email"
+                           class="form-control" placeholder="Enter your email" required>
+                </div>
+
+                <div class="mb-4 text-start">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password"
+                           class="form-control" placeholder="Create a password" required>
+                </div>
+
+                <div class="login-links-wrap text-start">
+                    <a href="/login" class="login-link">Already have an account? Log in.</a>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </div>
+            </form>
         </div>
+    </main>
 
-        <div>
-            <label for="email">Email</label>
-            <input type="email" id="email" th:field="*{email}" required>
-        </div>
-
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" th:field="*{password}" required>
-        </div>
-
-        <button type="submit">Register</button>
-    </form>
-
-    <p>
-        Already have an account?
-        <a th:href="@{/login}">Login here</a>
-    </p>
-</div>
-
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:insert="~{fragments/base :: assetsScripts}"></div>
 </body>
 </html>
-=======
---can this page to be removed--
->>>>>>> main

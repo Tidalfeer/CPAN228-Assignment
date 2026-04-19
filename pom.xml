@@ -83,6 +83,12 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency>
+    
+      <dependency>
+        <groupId>org.ops4j.pax.web.samples</groupId>
+        <artifactId>whiteboard-ds-dynamic</artifactId>
+        <version>9.0.20</version>
+      </dependency>
     </dependencies>
 
     <build>
