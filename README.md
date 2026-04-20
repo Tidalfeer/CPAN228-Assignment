@@ -64,6 +64,6 @@ Application runs on browser: `http://localhost:8080`
 | Name | Contributions |
 |---|---|
 | Ilia Mchedlishvili | In charge of the visual themes, styling, user experience and UI, website clarity. Dynamic scalings for mobile and debugging  |
-| Raj Patel | Handled documentation, testing/debugging/QA, Adminstration portal, Quality of life upgrades, initial structure and layout of project. Bookings, Docker.|
+| Raj Patel | Handled documentation, testing/debugging/QA, I contributed to the login and registration system, Spring Security configuration, and user/admin access control. Built the booking feature, including form handling, and Thymeleaf pages, fixing configuration issues.|
 | Ramanpreet Grover | Handled data persistence (JPA, entities, repositories) and backend integration. Resolved merge conflicts and duplicate controller/service issues. Set up Docker (app + MySQL), configured dev/QA profiles, and tested full application including login/register.|
 | Tyler Lee | Handled error checking, assisted in building web pages and services |
