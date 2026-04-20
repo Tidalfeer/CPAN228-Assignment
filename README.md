@@ -18,7 +18,7 @@ CodeCrew is a web-based technician booking platform where users can browse avail
 
 ## Technologies Implemented
 
-- **Java 21** + **Spring Boot**
+- **Java 17** + **Spring Boot**
 - **Spring MVC**
 - **Thymeleaf**
 - **Spring Security**
