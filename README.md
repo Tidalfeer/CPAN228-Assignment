@@ -66,4 +66,4 @@ Application runs on browser: `http://localhost:8080`
 | Ilia Mchedlishvili | |
 | Raj Patel | |
 | Ramanpreet Grover | Handled data persistence (JPA, entities, repositories) and backend integration. Resolved merge conflicts and duplicate controller/service issues. Set up Docker (app + MySQL), configured dev/QA profiles, and tested full application including login/register.|
-| Tyler Lee | |
+| Tyler Lee | Handled error checking, assisted in building web pages and services |
